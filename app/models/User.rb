@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
     # How does id of view connect to show?
     eppy = Episode.all.find_by name: episode_name
     eppy_id = eppy.id
-    View.create(user_id: self.id, episode_id: eppy_id, rating: rating)###add episode name arugment###
+    View.create(user_id: self.id, episode_id: eppy_id, rating: rating, name: episode_name)###add episode name arugment###
 
   end
 
