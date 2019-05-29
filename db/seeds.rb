@@ -12,14 +12,14 @@ user_2 = User.create(name: "Will")
 user_3 = User.create(name: "Buddy Holly")
 user_4 = User.create(name: "Mary Tyler Moore")
 
-view_1 = user_1.watch_episode
-view_2 = user_1.watch_episode
-view_3 = user_2.watch_episode
-view_4 = user_2.watch_episode
-view_5 = user_3.watch_episode
-view_6 = user_4.watch_episode
+# view_1 = user_1.watch_episode
+# view_2 = user_1.watch_episode
+# view_3 = user_2.watch_episode
+# view_4 = user_2.watch_episode
+# view_5 = user_3.watch_episode
+# view_6 = user_4.watch_episode
 
 
 
-# binding.pry
+binding.pry
 # view_1 = View.create(user_id, episode_id)########
