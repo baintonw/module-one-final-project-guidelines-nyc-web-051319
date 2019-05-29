@@ -1,5 +1,7 @@
+# require_all 'app'
+#
 # Should these have more info than name, how are they connected to Show?
-# How do you connect episode instances and user instances through View? Should watch_episode method take in an episode instance? 
+# How do you connect episode instances and user instances through View? Should watch_episode method take in an episode instance?
 episode_1 = Episode.create(name: "Winter is Coming")
 episode_2 = Episode.create(name: "The Kingsroad")
 episode_3 = Episode.create(name: "Lord Snow")
