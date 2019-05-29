@@ -9,7 +9,7 @@ class CommandLineInterface
 # require_all 'app'
 
   def welcome
-    puts "Welcome to your TV Tracker!"
+    puts "📺 Welcome to your TV Tracker! 📺".colorize(:blue)
     puts "               o
           o    |
            \\   |

@@ -16,12 +16,12 @@ class User < ActiveRecord::Base
   def rate(episode_name, new_rating)
     # Updates rate for episode
     # Iterate through
-    episode = Episode.all.find_by name: episode_name
+    viewing = View.all.find_by name: episode_name
     # eppy_id = eppy.id
     #
     # episode = find_episode(eppy_id)
 
-    episode.rating = new_rating
+    viewing.rating = new_rating
   end # Works √
 
   def update_bio(new_bio)
