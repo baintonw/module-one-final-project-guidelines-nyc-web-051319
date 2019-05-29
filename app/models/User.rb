@@ -2,19 +2,24 @@ class User < ActiveRecord::Base
   has_many :views
   has_many :users, through: :views
 
-  def watch_episode(episode_id, rating)
+  def watch_episode(episode_name, rating)
     # Creates new instance of view
     # Watches a single episode of a show
     # Should this automatically ask for rating?
     # How does id of view connect to show?
-    View.create(user_id: self.id, episode_id: episode_id, rating: rating)
+    eppy = Episode.all.find_by name: episode_name
+    eppy_id = eppy.id
+    View.create(user_id: self.id, episode_id: eppy_id, rating: rating)###add episode name arugment###
 
   end
 
-  def rate(episode_id, new_rating)
+  def rate(episode_name, new_rating)
     # Updates rate for episode
     # Iterate through
-    episode = find_episode(episode_id)
+    episode = Episode.all.find_by name: episode_name
+    # eppy_id = eppy.id
+    #
+    # episode = find_episode(eppy_id)
 
     episode.rating = new_rating
   end # Works √
@@ -60,11 +65,18 @@ class User < ActiveRecord::Base
     end
   end
 
-  def show_names
+  def episode_names
     View.all.map do |ep|
       ep.name
     end
   end
+
+  # def find_by_name(episode_name)
+  #   View.all.find do |ep|
+  #
+  #   end
+  #
+  # end
 
 
 

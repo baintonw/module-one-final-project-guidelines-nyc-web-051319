@@ -38,11 +38,11 @@ jgs | LI LI \"\"\"\"\"\"\"   o|
     case input
 
     when "watch episode" # Working √
-      puts "What episode did you watch (by id number)?"
+      puts "What episode did you watch?"
       input2 = gets.strip
       puts "Give the episode a rating from 1-5."
       input3 = gets.strip
-      @user.watch_episode(input2, input3)
+      @user.watch_episode(input2.to_s, input3.to_i)
       puts "Success! Episode watched!"
       # Ultimately, we want a user to be able to find an episode by its name rather than ID number, and we want any invalid input to be recognized by the program
 
@@ -51,7 +51,7 @@ jgs | LI LI \"\"\"\"\"\"\"   o|
       input4 = gets.strip
       puts "What is your new rating?"
       input5 = gets.strip
-      @user.rate(input4, input5)
+      @user.rate(input4.to_s, input5.to_i)
       puts "Success! Episode rating updated!"
       # Again, we want a user to be able to find an episode by its name and we want the program to deny any invalid input (i.e. rating not between 1-5)
 

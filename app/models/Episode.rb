@@ -6,6 +6,8 @@ class Episode < ActiveRecord::Base
     View.all.where(rating: 5)
   end
 
+  
+
 
   # Need a list of viewers
   # How do we connect new Episode to show?
