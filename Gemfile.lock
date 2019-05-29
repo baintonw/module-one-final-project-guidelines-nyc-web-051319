@@ -13,7 +13,9 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.4)
+    artii (2.1.2)
     coderay (1.1.1)
+    colorize (0.8.1)
     concurrent-ruby (1.0.5)
     i18n (0.8.1)
     method_source (0.8.2)
@@ -44,10 +46,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  artii
+  colorize
   pry
   require_all
   sinatra-activerecord
   sqlite3
 
 BUNDLED WITH
-   1.14.6
+   1.17.2
