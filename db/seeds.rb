@@ -6,6 +6,7 @@ episode_1 = Episode.create(name: "Winter is Coming")
 episode_2 = Episode.create(name: "The Kingsroad")
 episode_3 = Episode.create(name: "Lord Snow")
 episode_4 = Episode.create(name: "Cripples, Bastards, and Broken Things")
+episode_10 = Episode.create(name: "Finale")
 
 user_1 = User.create(name: "Mary")
 user_2 = User.create(name: "Will")
