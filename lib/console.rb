@@ -13,7 +13,7 @@ class CommandLineInterface
     song = Music.new('./lib/assets/song.mp3')
     song.volume = 50
     song.play
-    
+
     Catpix::print_image "./lib/assets/tv 6.png",
       :limit_x => 1,
       :limit_y => 1,
@@ -21,11 +21,13 @@ class CommandLineInterface
       :center_y => true,
       :bg_fill => false,
       :resolution => 'high'
+
+      sleep(60)
   end
 
   def welcome
 
-    puts "📺  Welcome to Buffy Buddies!  📺".colorize(:red).blink
+    puts "📺  Welcome to Buffy Buddies! 📺  \n".colorize(:red).blink
 
     puts "\n Your personalized Buffy the Vampire Slayer database!".colorize(:red)
     puts " "
