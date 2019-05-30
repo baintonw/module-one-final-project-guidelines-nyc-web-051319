@@ -1,30 +1,31 @@
 class User < ActiveRecord::Base
   has_many :views
-  has_many :users, through: :views
+  has_many :episodes, through: :views
 
   def watch_episode(episode_name, rating)
     # Creates new instance of view
     # Watches a single episode of a show
     eppy = Episode.all.find_by name: episode_name
     eppy_id = eppy.id
-    View.create(user_id: self.id, episode_id: eppy_id, rating: rating, name: episode_name)###add episode name arugment###
- #
+    # eppy_season = eppy.season
+    View.create(user_id: self.id, episode_id: eppy_id, rating: rating, name: episode_name) #, season: eppy_season)
   end
 
   def rate(episode_name, new_rating)
     # Updates rate for episode
     # Iterate through
-    viewing = View.all.find_by name: episode_name
+    eppy = Episode.all.find_by name: episode_name
+    eppy_id = eppy.id
+    viewing = View.all.find_by episode_id: eppy_id
     viewing.rating = new_rating  # Working √
   end # Works √
 
-  def update_bio(new_bio) # FIX DIS
-    self.bio = new_bio
-  end # Number 4
-
-  def remove_view(row_key) # FIX DIS
-    View.delete(row_key)
-  end
+  # def delete(episode_name, new_rating)
+  #   # Updates rate for episode
+  #   # Iterate through
+  #   viewing = View.all.find_by name: episode_name
+  #   viewing.delete  # Working √
+  # end
 
   # def finish_show # Change name to finale episode/finish show?
   #   Episode.find_or_create_by(name: "Chosen", season: "Season 7")
