@@ -28,15 +28,6 @@ class User < ActiveRecord::Base
   #   viewing.delete  # Working √
   # end
 
-  # def finish_show # Change name to finale episode/finish show?
-  #   Episode.find_or_create_by(name: "Chosen", season: "Season 7")
-    # Complete show (removes show from queue)
-    # Maybe: moves show from 'queue' to 'watch list'
-    ###selet episode returns episode ids, return specific episode ids that match user ids####
-    ####returns a list of viewed episodes####
-    ##maybe add to watched list###
-  # end
-
   # def most_popular
   #   # Iterate through ALL views and find most watched episode/show
   #   # Find most watched shows of all time, or find show that I (user) have watched the most episodes of?

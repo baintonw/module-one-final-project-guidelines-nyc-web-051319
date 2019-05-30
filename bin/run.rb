@@ -6,9 +6,13 @@ require_relative '../app/models/View.rb'
 
 
 cli = CommandLineInterface.new
+# cli.call
 # binding.pry
 #
+# system("clear")
 # cli.greet
 # These two arent playing nice
-cli.welcome
+# system("clear")
+# cli.welcome
+cli.call
 # cli.song
