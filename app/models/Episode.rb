@@ -6,6 +6,12 @@ class Episode < ActiveRecord::Base
     View.all.where(rating: 5)
   end
 
+  def self.episode_list
+    self.all.map do |ep|
+      ep.name
+    end
+  end###ADDED
+
 
 
 

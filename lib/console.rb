@@ -10,7 +10,7 @@ class CommandLineInterface
 # require_all 'lib'
 # require_all 'app'
   def greet
-    Catpix::print_image "./lib/buffy.png",
+    Catpix::print_image "./lib/assets/tv 6.png",
       :limit_x => 1,
       :limit_y => 1,
       :center_x => true,
@@ -23,34 +23,38 @@ class CommandLineInterface
   def welcome
 
     puts "📺  Welcome to Buffy Buddies!  📺".colorize(:red).blink
-    puts "               o
-          o    |
-           \\   |
-            \\  |
-             \\.|-.
-             (\\|  )
-    .==================.
-    | .--------------. |
-    | |--.__.--.__.--| |
-    | |--.__.--.__.--| |
-    | |--.__.--.__.--| |
-    | |--.__.--.__.--| |
-    | |--.__.--.__.--| |
-    | '--------------'o|
-jgs | LI LI \"\"\"\"\"\"\"   o|
-    \'==================\'
-    "
-    puts "Please login or create a new username:"
+#     puts "               o
+#           o    |
+#            \\   |
+#             \\  |
+#              \\.|-.
+#              (\\|  )
+#     .==================.
+#     | .--------------. |
+#     | |--.__.--.__.--| |
+#     | |--.__.--.__.--| |
+#     | |--.__.--.__.--| |
+#     | |--.__.--.__.--| |
+#     | |--.__.--.__.--| |
+#     | '--------------'o|
+# jgs | LI LI \"\"\"\"\"\"\"   o|
+#     \'==================\'
+#     "
+    puts "\n Your personalized Buffy the Vampire Slayer database!".colorize(:red)
+    puts " "
+    puts "Please login or create a new username: \n"
     input0 = gets.chomp
-    @user = User.find_or_create_by(name: input0)
+    if input0 == "exit"
+      puts "\n Ending program now. If the apocalypse comes, beep me! \n".colorize(:red)
+    else
+      @user = User.find_or_create_by(name: input0)
+      puts "What do you want to do today?"
+      puts "Your options are:\n    1. watch episode, \n    2. change rating, \n    3. update favorites, \n    4. finish show,\n    5. favorite episodes,\n    6. remove episode,\n    7. exit \n"
+      input = gets.strip
 
-    puts "What do you want to do today?"
-    puts "Your options are:\n    1. watch episode, \n    2. change rating, \n    3. update favorites, \n    4. finish show,\n    5. favorite episodes,\n    6. remove episode,\n    7. exit"
-    input = gets.strip
+      case input
 
-    case input
-
-    when "1", "watch episode" # Working √
+      when "1", "watch episode" # Working √
       puts "List of available episodes:"
       puts Episode.episode_list
       puts " "
@@ -67,10 +71,10 @@ jgs | LI LI \"\"\"\"\"\"\"   o|
       end
       # Ultimately, we want a user to be able to find an episode by its name rather than ID number, and we want any invalid input to be recognized by the program
 
-    when "2", "change rating"
+      when "2", "change rating"
       puts "List of available episodes"
       puts " "
-      puts @user.unique_rated_names
+      puts @user.watched_episodes_names
       puts " "
       puts "Which episode do you want to change?"
       input4 = gets.strip
@@ -83,17 +87,17 @@ jgs | LI LI \"\"\"\"\"\"\"   o|
         puts "Success! Rating updated!"
       end
 
-    when "3", "update favorites"
+      when "3", "update favorites"
       puts "What is your favorite TV series?"
       fav_show = gets.strip
       @user.update_bio(fav_show.to_s)
       puts "Success! Favorite TV series updated!"
 
-    when "4", "finish show"
+      when "4", "finish show"
       @user.finish_show
       puts "Congratulations! You've finished an entire show! Please go outside and soak up some vitamin D before proceeding with your next television endeavor!"
 
-    when "5", "favorite episodes"
+      when "5", "favorite episodes"
       # Pulls all episodes rated 5 by user
       val = @user.views.where(rating: 5)
         if val.length == 1
@@ -119,12 +123,19 @@ jgs | LI LI \"\"\"\"\"\"\"   o|
 
 
       when "7", "exit"
-        puts "Why would you call on me if you were just going to close me immediately? I may only be a simple CLI, but I have feelings too, and I do not like to be strung along by indicisive users like you. Think before you run next time!"
+        puts "Ending program now. If the apocalypse comes, beep me!".colorize(:red)
 
-    else
-      puts "Invalid input. Please try again."
-    end
-  end
+      else
+        puts "Invalid input. Please try again.".colorize(:red)
+        puts
+        puts " "
+        sleep(2)
+        welcome
+      end
+
+    end # end if/then for username
+
+  end # end welcome method
 
 
 end #end class

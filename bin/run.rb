@@ -7,6 +7,7 @@ require_relative '../app/models/View.rb'
 
 cli = CommandLineInterface.new
 # binding.pry
-cli.welcome
+#
+# cli.greet
 
-# welcome
+cli.welcome

@@ -71,6 +71,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def watched_episodes
+    View.all.select do |ep|
+      ep.user_id == self.id
+    end
+  end###ADDED
+
+  def watched_episodes_names
+    watched_episodes.map do |ep|
+      ep.name
+    end
+  end###ADDED
+
 
 
 

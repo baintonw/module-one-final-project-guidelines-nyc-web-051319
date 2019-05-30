@@ -19,13 +19,13 @@ ActiveRecord::Schema.define(version: 6) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "bio"
-    t.string "rating"
   end
 
   create_table "views", force: :cascade do |t|
     t.integer "user_id"
     t.integer "episode_id"
     t.integer "rating"
+    t.string  "name"
   end
 
 end
