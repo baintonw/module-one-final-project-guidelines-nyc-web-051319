@@ -10,6 +10,10 @@ class CommandLineInterface
 # require_all 'lib'
 # require_all 'app'
   def greet
+    song = Music.new('./lib/assets/song.mp3')
+    song.volume = 50
+    song.play
+    
     Catpix::print_image "./lib/assets/tv 6.png",
       :limit_x => 1,
       :limit_y => 1,
@@ -62,7 +66,9 @@ class CommandLineInterface
         if input3 > 5 || input3 < 1
           puts "Invalid input. Please choose a number between 1 and 5."
         else
-          @user.watch_episode(input2.to_s, input3.to_i)
+          puts "Leave a comment about the episode:"
+          input4 = gets.strip
+          @user.watch_episode(input2.to_s, input3.to_i, input4.to_s)
           puts "Success! Episode watched!"
         end
       end
@@ -143,5 +149,15 @@ class CommandLineInterface
 
   end # end welcome method
 
+  def speak
+    system('say "hello master"')
+  end
+
+  # def song
+  #   song = Music.new('./lib/assets/song.mp3')
+  #   song.volume = 50
+  #   song.play
+  #   sleep(100)
+  # end
 
 end #end class

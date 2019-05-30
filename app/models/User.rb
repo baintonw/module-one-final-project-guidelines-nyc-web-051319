@@ -2,13 +2,13 @@ class User < ActiveRecord::Base
   has_many :views
   has_many :episodes, through: :views
 
-  def watch_episode(episode_name, rating)
+  def watch_episode(episode_name, rating, comment)
     # Creates new instance of view
     # Watches a single episode of a show
     eppy = Episode.all.find_by name: episode_name
     eppy_id = eppy.id
     # eppy_season = eppy.season
-    View.create(user_id: self.id, episode_id: eppy_id, rating: rating, name: episode_name) #, season: eppy_season)
+    View.create(user_id: self.id, episode_id: eppy_id, rating: rating, name: episode_name, comment: comment) #, season: eppy_season)
   end
 
   def rate(episode_name, new_rating)
@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
     viewing = View.all.find_by episode_id: eppy_id
     viewing.rating = new_rating  # Working √
   end # Works √
+
 
   # def delete(episode_name, new_rating)
   #   # Updates rate for episode
