@@ -49,7 +49,7 @@ class CommandLineInterface
     else
       @user = User.find_or_create_by(name: input0)
       puts "What do you want to do today?"
-      puts "Your options are:\n    1. watch episode, \n    2. change rating, \n    3. update favorites, \n    4. finish show,\n    5. favorite episodes,\n    6. remove episode,\n    7. exit \n"
+      puts "Your options are:\n    1. watch episode, \n    2. change rating, \n    3. update favorites, \n    4. finish show (DON'T PICK THIS ONE!!!),\n    5. favorite episodes,\n    6. remove episode,\n    7. exit \n"
       input = gets.strip
 
       case input
@@ -69,7 +69,6 @@ class CommandLineInterface
         @user.watch_episode(input2.to_s, input3.to_i)
         puts "Success! Episode watched!"
       end
-      # Ultimately, we want a user to be able to find an episode by its name rather than ID number, and we want any invalid input to be recognized by the program
 
       when "2", "change rating"
       puts "List of available episodes"
@@ -85,7 +84,7 @@ class CommandLineInterface
       else
         @user.rate(input4.to_s, input5.to_i)
         puts "Success! Rating updated!"
-      end
+      end # Working √
 
       when "3", "update favorites"
       puts "What is your favorite TV series?"
@@ -93,11 +92,11 @@ class CommandLineInterface
       @user.update_bio(fav_show.to_s)
       puts "Success! Favorite TV series updated!"
 
-      when "4", "finish show"
-      @user.finish_show
-      puts "Congratulations! You've finished an entire show! Please go outside and soak up some vitamin D before proceeding with your next television endeavor!"
+      # when "4", "finish show"
+      # @user.finish_show
+      # puts "Congratulations! You've finished the best show of all time!".colorize(:green)
 
-      when "5", "favorite episodes"
+      when "5", "favorite episodes" # Working √
       # Pulls all episodes rated 5 by user
       val = @user.views.where(rating: 5)
         if val.length == 1
@@ -106,7 +105,7 @@ class CommandLineInterface
           puts "Operation complete."
         elsif val.length > 1
           array2 = val.all.map { |view| Episode.find_by_id(view.episode_id).name }
-          puts array2
+          array2.each { |x| puts "    -  #{}".colorize(:light_blue) + x.colorize(:light_blue) }
           puts "Operation complete. You have many favorite episodes. Please learn to be more decisive."
         else
           puts "You have no favorite episodes! Please learn how to open yourself up to joy, and try again."
@@ -119,7 +118,7 @@ class CommandLineInterface
         View.delete(bepis2)
         # Views.where(episode_id: input6, user_id: @user)
         # @user.remove_view.where(episode_id: input6)
-        puts "Operation complete!"
+        puts "Operation complete!" 
 
 
       when "7", "exit"
