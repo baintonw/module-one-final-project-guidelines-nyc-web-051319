@@ -11,7 +11,7 @@ class CommandLineInterface
 # require_all 'app'
 
   def call
-    # titlescreen
+    titlescreen
     login
   end
 
@@ -29,7 +29,7 @@ class CommandLineInterface
       :bg_fill => false,
       :resolution => 'high'
 
-    sleep(5)
+    sleep(3)
   end #end greet
 
   def smg
@@ -54,13 +54,16 @@ class CommandLineInterface
 
   def login
 
-    puts "\n \n      𝖂 𝖊𝖑𝖈𝖔𝖒𝖊  𝖙𝖔  𝕭 𝖚𝖋𝖋𝖞  𝕭 𝖚𝖉𝖉𝖎𝖊𝖘!      ".colorize(:light_red).bold
+    puts "\n \n      𝖂 𝖊𝖑𝖈𝖔𝖒𝖊  𝖙𝖔  𝕭 𝖚𝖋𝖋𝖞  𝕭 𝖚𝖉𝖉𝖎𝖊𝖘!      ".colorize(:light_red).bold.blink
     puts "\n \n  \\( •_•)_†     \\( •_•)_†    \\( •_•)_†    \\( •_•)_†     "
     puts "\n \n     Your personalized Buffy the Vampire Slayer database!    ".colorize(:light_red)
     puts "\n \n  Please login or create a new username: \n".colorize(:light_red)
     input0 = gets.chomp
     if input0 == "exit"
       puts "\n Ending program now. If the apocalypse comes, beep me! \n".colorize(:light_red)
+    elsif input0 == "bepis"
+      player.forward(200)
+      bepis_mode #easter egg
     else
       @user = User.find_or_create_by(name: input0)
       main_menu
@@ -277,6 +280,24 @@ class CommandLineInterface
     else
       puts "Not an option!"
     end
+  end
+
+  def bepis_mode
+    player1 = Audite.new
+    player1.load('./lib/assets/eastereggs/bepis mode 1.mp3')
+    player1.start_stream
+
+    puts "Entering bepis mode!"
+
+    Catpix::print_image "./lib/assets/eastereggs/bepis.jpg",
+      :limit_x => 1,
+      :limit_y => 1,
+      :center_x => true,
+      :center_y => true,
+      :bg_fill => false,
+      :resolution => 'high'
+
+    sleep(100)
   end
 
 
