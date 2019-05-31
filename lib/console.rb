@@ -11,7 +11,7 @@ class CommandLineInterface
 # require_all 'app'
 
   def call
-    titlescreen
+    # titlescreen
     login
   end
 
@@ -54,7 +54,7 @@ class CommandLineInterface
 
   def login
 
-    puts "\n \n      𝖂 𝖊𝖑𝖈𝖔𝖒𝖊  𝖙𝖔  𝕭 𝖚𝖋𝖋𝖞  𝕭 𝖚𝖉𝖉𝖎𝖊𝖘!      ".colorize(:light_red).bold.blink
+    puts "\n \n    🧛🏻‍  ⚰️      𝖂 𝖊𝖑𝖈𝖔𝖒𝖊  𝖙𝖔  𝕭 𝖚𝖋𝖋𝖞  𝕭 𝖚𝖉𝖉𝖎𝖊𝖘!      ⚰️  🧛🏻‍    ".colorize(:light_red).bold.blink
     puts "\n \n  \\( •_•)_†     \\( •_•)_†    \\( •_•)_†    \\( •_•)_†     "
     puts "\n \n     Your personalized Buffy the Vampire Slayer database!    ".colorize(:light_red)
     puts "\n \n  Please login or create a new username: \n".colorize(:light_red)
