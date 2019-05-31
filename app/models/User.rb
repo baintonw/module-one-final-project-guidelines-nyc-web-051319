@@ -11,13 +11,14 @@ class User < ActiveRecord::Base
     View.create(user_id: self.id, episode_id: eppy_id, rating: rating, name: episode_name, comment: comment) #, season: eppy_season)
   end
 
-  def rate(episode_name, new_rating)
+  def rate(episode_name, new_rating, new_comment)
     # Updates rate for episode
     # Iterate through
     eppy = Episode.all.find_by name: episode_name
     eppy_id = eppy.id
     viewing = View.all.find_by episode_id: eppy_id
-    viewing.rating = new_rating  # Working √
+    viewing.rating = new_rating
+    viewing.comment = new_comment  # Working √
   end # Works √
 
 

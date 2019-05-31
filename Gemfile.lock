@@ -12,6 +12,7 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    ansi (1.5.0)
     arel (9.0.0)
     audite (0.4.0)
     catpix (0.2.0)
@@ -56,6 +57,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ansi
   audite
   catpix
   colorize
