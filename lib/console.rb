@@ -61,9 +61,6 @@ class CommandLineInterface
     input0 = gets.chomp
     if input0 == "exit"
       puts "\n Ending program now. If the apocalypse comes, beep me! \n".colorize(:light_red)
-    elsif input0 == "bepis"
-      player.forward(200)
-      bepis_mode #easter egg
     else
       @user = User.find_or_create_by(name: input0)
       main_menu
@@ -280,24 +277,6 @@ class CommandLineInterface
     else
       puts "Not an option!"
     end
-  end
-
-  def bepis_mode
-    player1 = Audite.new
-    player1.load('./lib/assets/eastereggs/bepis mode 1.mp3')
-    player1.start_stream
-
-    puts "Entering bepis mode!"
-
-    Catpix::print_image "./lib/assets/eastereggs/bepis.jpg",
-      :limit_x => 1,
-      :limit_y => 1,
-      :center_x => true,
-      :center_y => true,
-      :bg_fill => false,
-      :resolution => 'high'
-
-    sleep(100)
   end
 
 
