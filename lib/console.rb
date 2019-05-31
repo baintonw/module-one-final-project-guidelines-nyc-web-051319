@@ -11,6 +11,7 @@ class CommandLineInterface
 # require_all 'app'
 
   def call
+    system("clear")
     # titlescreen
     login
   end
@@ -69,9 +70,9 @@ class CommandLineInterface
   end
 
   def main_menu
-    puts "\n  Welcome to your Buffy database, #{@user.name}!".colorize(:light_red)
-    puts "\n  What do you want to do today?\n"
-    puts "      1. start program \n      2. user info \n      3. exit"
+    puts "\n  Welcome to your personalized Buffy database, #{@user.name}!".colorize(:light_red)
+    puts "\n  What do you want to do today?\n".colorize(:light_red)
+    puts "      1. start program \n      2. user info \n      3. exit".colorize(:light_red)
     input = gets.strip
 
       case input
@@ -79,26 +80,32 @@ class CommandLineInterface
         start_program
 
       when "2", "user info"
-        puts "User start"
         user_info
+
       when "3", "exit"
-        puts "\n Ending program now. If the apocalypse comes, beep me! \n".colorize(:red)
+        puts "\n       ╔═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╗ \n"
+        puts "\n ⚰️   𝕰𝖓𝖉𝖎𝖓𝖌  𝖕𝖗𝖔𝖌𝖗𝖆𝖒  𝖓𝖔𝖜.  𝕴𝖋  𝖙𝖍𝖊  𝖆𝖕𝖔𝖈𝖆𝖑𝖞𝖕𝖘𝖊  𝖈𝖔𝖒𝖊𝖘,  𝖇𝖊𝖊𝖕  𝖒𝖊!  ⚰️  \n".colorize(:red).bold
+        puts "       ╚═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╝ "
+        sleep(1)
+        smg
+
       else
-        puts "That is not a valid option!"
+        puts "Bad dog! That is not a valid option!".colorize(:light_red)
       end
   end #end main menu
 
   def start_program
     #light_blue color scheme
-    puts "\n\n  Program start!".colorize(:light_blue)
+    puts "\n  Program Menu:\n".colorize(:light_blue)
     puts "      1. watch episode\n      2. change rate\n      3. my favs\n      4. remove view\n      5. top five\n      6. main menu\n      7. exit\n".colorize(:light_blue)
     program_input = gets.chomp
     case program_input
 
         when "1", "watch episode" # Working √
-        puts "List of available episodes:\n".colorize(:light_blue)
+        puts "  List of available episodes:\n".colorize(:light_blue)
+        puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
         puts Episode.episode_list
-        puts "-----------"
+        puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
         puts "\n  What episode did you watch?\n".colorize(:light_blue)
         input2 = gets.strip
         if
@@ -108,43 +115,60 @@ class CommandLineInterface
           start_program
         elsif Episode.episode_list.include?(input2) == false
           puts "  Bad dog! #{input2} is not the name of a Buffy episode! Try again!".colorize(:light_blue)
-          sleep(3)
+          sleep(1)
           start_program
         else
           puts "\n  Give the episode a rating from 1-5.\n".colorize(:light_blue)
           input3 = gets.strip.to_i
-          if input3 > 5 || input3 < 1
-            puts "\n  Invalid input. Please choose a number between 1 and 5.".colorize(:light_blue)
-            sleep(1)
-            start_program
-          else
-            puts "\n  Have a sentence, even! Leave a comment about the episode:\n".colorize(:light_blue)
+              if input3 > 5
+              input3 = 5
+              puts "\n  Rating rounded down to 5!".colorize(:light_blue)
+              sleep(1)
+              puts "\n  Have a sentence, even! Leave a comment about the episode:\n".colorize(:light_blue)
+            elsif input3 < 1
+              input3 = 1
+              puts puts "\n  Rating rounded up to 1!".colorize(:light_blue)
+              sleep(1)
+              puts "\n  Have a sentence, even! Leave a comment about the episode:\n".colorize(:light_blue)
+            else
+              puts "\n  Have a sentence, even! Leave a comment about the episode:\n".colorize(:light_blue)
+            end
             input4 = gets.strip
             @user.watch_episode(input2.to_s, input3.to_i, input4.to_s)
             puts "\n  Success! Episode watched!".colorize(:light_blue)
             sleep(1)
             start_program
           end
-        end
 
       when "2", "change rating"
         puts "  List of available episodes\n".colorize(:light_blue)
+        puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
         puts @user.watched_episodes_names
+        puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n"
         puts "\n  Which episode do you want to change?\n".colorize(:light_blue)
         input4 = gets.strip
-        puts "  What is your new rating?\n".colorize(:light_blue)
-        input5 = gets.strip
-
-        case input5
-        when "1", "2", "3", "4", "5"
-          puts "  Please update your review: "
-          input6 = gets.strip
-          @user.rate(input4.to_s, input5.to_i, input6.to_s)
-          puts "  Success! Rating updated!"
+        if @user.watched_episodes_names.include?(input4) == false
+          puts "\nBad dog! That's not the name of a Buffy episode. Try again.".colorize(:light_blue)
+          puts "\n  Returning to program menu.".colorize(:light_red)
           sleep(1)
           start_program
         else
-          puts "  Invalid input. Please choose an integer number between 1 and 5."
+          puts "\n  What is your new rating?\n".colorize(:light_blue)
+          input5 = gets.strip
+        end
+
+        case input5
+        when "1", "2", "3", "4", "5"
+          puts "\n  Please update your review: \n".colorize(:light_blue)
+          input6 = gets.strip
+          @user.rate(input4.to_s, input5.to_i, input6.to_s)
+          puts "\n  Success! Rating updated!".colorize(:green)
+          puts puts "\n  Returning to program menu.\n".colorize(:light_blue)
+          sleep(1)
+          start_program
+        else
+          puts "\n  Invalid input. Please choose an integer number between 1 and 5.\n".colorize(:light_blue)
+          puts "  Returning to program menu.\n".colorize(:light_red)
           sleep(1)
           start_program
         end # Working √
@@ -152,21 +176,13 @@ class CommandLineInterface
       when "3", "my favs" #Working √
         # Pulls all episodes rated 5 by user
         val = @user.views.where(rating: 5)
-          if val.length == 1
-            bepis = val.episode_id
-            puts "        -----------"
-            puts "  Your favorite episode is: #{Episode.find_by_id(bepis).name}. Good choice!\n"
-            puts "        ----------\n"
-            puts "  Operation complete.\n"
-            sleep(2)
-            start_program
-          elsif val.length > 1
-            puts "        ----------\n"
-            puts "  Your favorite episodes are: "
+          if val.length > 0
+            puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+            puts "  Your favorite episode(s) are: "
             array2 = val.all.map { |view| Episode.find_by_id(view.episode_id).name }
-            array2.each { |x| puts "    -  #{}".colorize(:light_blue) + x.colorize(:light_blue) }
-            puts "        ----------\n"
-            puts "\n    Operation complete. You have many favorite episodes. You must be a big fan of the show!\n".colorize(:light_red)
+            array2.each { |x| puts "    - #{x}"}
+            puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+            puts "\n    Operation complete. You have many favorite episodes. You must be a big fan of the show!\n".colorize(:green)
             puts "  Restarting program now.".colorize(:light_blue)
             sleep(4)
             start_program
@@ -178,19 +194,22 @@ class CommandLineInterface
 
       when "4", "remove episode"
           puts "  List of available episodes:\n".colorize(:light_blue)
-          puts "    ----------"
+          puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
           puts @user.watched_episodes_names
-          puts "    ----------"
+          puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
           puts "\n  Which episode would you like to delete?\n".colorize(:light_blue)
           episode = gets.strip
           bepis2 = View.find_by(name: episode)
           View.delete(bepis2)
-          puts "\n  Operation complete!\n  You burned down the gymnasium!\n".colorize(:light_blue)
+          puts "\n  Operation complete!\n  You burned down the gymnasium!\n".colorize(:green)
           sleep(2)
          start_program
 
-      when "5", "top five" # FIX DIS
+      when "5", "top five"
+        puts "        Top 5 Highest-Rated Episodes of all time:\n".colorize(:light_blue)
+        puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
         puts Episode.hash_name_rating.sort.first(5)
+        puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
         sleep(2)
         start_program
 
@@ -199,7 +218,9 @@ class CommandLineInterface
         main_menu
 
       when "7", "exit"
-        puts "\n Ending program now. If the apocalypse comes, beep me! \n".colorize(:light_red)
+        puts "\n       ╔═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╗ \n"
+        puts "\n ⚰️   𝕰𝖓𝖉𝖎𝖓𝖌  𝖕𝖗𝖔𝖌𝖗𝖆𝖒  𝖓𝖔𝖜.  𝕴𝖋  𝖙𝖍𝖊  𝖆𝖕𝖔𝖈𝖆𝖑𝖞𝖕𝖘𝖊  𝖈𝖔𝖒𝖊𝖘,  𝖇𝖊𝖊𝖕  𝖒𝖊!  ⚰️  \n".colorize(:red).bold
+        puts "       ╚═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╝ "
         sleep(1)
         smg
 
@@ -210,78 +231,113 @@ class CommandLineInterface
     end
 
   def user_info
-    puts "User start"
-    puts "    1. my user data\n    2. my viewed episodes\n    3. my favorite episodes\n    4. make or change bio\n    5. main menu\n    6. exit\n"
+    puts "\n  User Menu: ".colorize(:cyan)
+    puts "      1. my user data\n      2. my viewed episodes\n      3. ep info\n      4. my favorite episodes\n      5. make or change bio\n      6. main menu\n      7. exit\n".colorize(:cyan)
     user_input = gets.chomp
 
     case user_input
 
     when "1", "my user data"
-      puts "Username: \n    #{@user.name}\n \n"
-      puts "Your episode list: "
-      @user.watched_episodes_names.each { |x| puts "    -  #{}".colorize(:light_blue) + x.colorize(:light_blue) }
-      puts " "
-      puts "User bio: \n    #{@user.bio}\n"
+      sleep(1)
+      puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+      puts "  Username: \n".colorize(:cyan)
+      puts "      #{@user.name}\n \n"
+      puts "  Your episode list: \n".colorize(:cyan)
+      @user.watched_episodes_names.each { |x| puts "    -  #{x}" }
+      puts "\n  User bio: ".colorize(:cyan)
+      puts "      #{@user.bio} \n \n"
+      puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
       sleep(3)
       user_info
 
     when "2", "my viewed episodes"
-      @user.watched_episodes_names.each { |x| puts "    -  #{}".colorize(:light_blue) + x.colorize(:light_blue) }
+      puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+      puts "  Your watched episodes: \n".colorize(:cyan)
+      @user.watched_episodes_names.each { |x| puts "    -  #{x}" }
+      puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+      sleep(2)
       user_info
 
-    when "3", "my favorite episodes"
+    when "3", "ep info"
+      @user.user_ep_info
+      sleep(3)
+      user_info
+
+    when "4", "my favorite episodes"
       # Not dry, fix later
+      sleep(1)
       val = @user.views.where(rating: 5)
         if val.length == 1
           bepis = val.episode_id
-          puts "        -----------"
+          puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
           puts "  Your favorite episode is: #{Episode.find_by_id(bepis).name}. Good choice!\n"
-          puts "        ----------\n"
-          puts "  Operation complete.\n"
-          sleep(2)
+          puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+          sleep(1)
+          puts "\n    Operation complete. You have many favorite episodes. You must be a big fan of the show!\n".colorize(:green)
+          puts "  Returning to user menu.".colorize(:cyan)
+          sleep(3)
           start_program
         elsif val.length > 1
-          puts "        ----------\n"
-          puts "  Your favorite episodes are: ".colorize(:cyan)
+          puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+          puts "  Your favorite episodes are: \n".colorize(:cyan)
           array2 = val.all.map { |view| Episode.find_by_id(view.episode_id).name }
-          array2.each { |x| puts "    -  ".colorize(:light_blue) + x.colorize(:cyan) }
-          puts "        ----------\n"
-          puts "\n    Operation complete. You have many favorite episodes. You must be a big fan of the show!\n".colorize(:light_red)
-          puts "  Restarting program now.".colorize(:cyan)
-          sleep(4)
+          array2.each { |x| puts "    -  " + x }
+          puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+          puts "\n    Operation complete. You have many favorite episodes. You must be a big fan of the show!\n".colorize(:green)
+          puts "  Returning to user menu.\n".colorize(:cyan)
+          sleep(3)
           user_info
         else
-          puts "You have no favorite episodes! Please learn how to open yourself up to joy, and try again."
-          sleep(1)
+          puts "You have no favorite episodes! What is your childhood trauma?!".colorize(:cyan)
+          puts "  Returning to user menu.".colorize(:cyan)
+          sleep(2)
           user_info
         end
 
-    when "4", "make or change bio"
-        puts "Tell us about yourself. How old are you? Who is your favorite Buffy character? What is your favorite episode?"
+    when "5", "make or change bio"
+        puts "\n  Tell us about yourself.".colorize(:cyan)
+        puts "    - How old are you?".colorize(:cyan)
+        puts "    - Who is your favorite Buffy character?".colorize(:cyan)
+        puts "    - What is your favorite episode?\n".colorize(:cyan)
         bio = gets.strip
         @user.update_attributes(:bio => bio.to_s)
-        puts "Bio created: \n".colorize(:green)
-        puts @user.bio
-        puts " "
-        puts "Success!".colorize(:green)
+        puts "\n  New Bio: ".colorize(:cyan)
+        sleep(1)
+        puts "\n    #{@user.bio}\n"
+        puts "\n  Success!\n".colorize(:green)
         sleep(2)
       user_info
 
-    when "5", "main menu"
-      puts "returning to main menu"
+    when "6", "main menu"
+      puts "\n  Returning to main menu.".colorize(:light_red)
+      sleep(1)
       main_menu
 
-    when "6", "exit"
-      puts "\n Ending program now. If the apocalypse comes, beep me! \n".colorize(:red)
+    when "7", "exit"
+      puts "\n       ╔═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╗ \n"
+      puts "\n ⚰️   𝕰𝖓𝖉𝖎𝖓𝖌  𝖕𝖗𝖔𝖌𝖗𝖆𝖒  𝖓𝖔𝖜.  𝕴𝖋  𝖙𝖍𝖊  𝖆𝖕𝖔𝖈𝖆𝖑𝖞𝖕𝖘𝖊  𝖈𝖔𝖒𝖊𝖘,  𝖇𝖊𝖊𝖕  𝖒𝖊!  ⚰️  \n".colorize(:red).bold
+      puts "       ╚═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╝ "
+      sleep(1)
       tara
 
     else
-      puts "Not an option!"
+      puts "  That is not a valid option!".colorize(:light_red)
     end
   end
 
 
+
 end #class end
+
+# if val.length == 1
+#   bepis = val.episode_id
+#   puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+#   puts "  Your favorite episode is: #{Episode.find_by_id(bepis).name}. Good choice!\n".colorize(:light_blue)
+#   puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+#   puts "  Operation complete.\n".colorize(:green)
+#   puts "  Restarting program now.".colorize(:light_blue)
+#   sleep(2)
+#   start_program
 
 
       # when "a", "user info" #nworking √

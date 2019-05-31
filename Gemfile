@@ -7,6 +7,4 @@ gem "pry"
 gem "require_all"
 gem 'colorize'
 gem 'catpix'
-# gem 'sound', '~> 0.1.0'
 gem 'audite'
-# gem 'ansi'

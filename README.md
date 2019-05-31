@@ -1,21 +1,28 @@
-# TV Tracker CLI
+# Buffy Buddies CLI
 
-TV Tracker is a CLI that tracks the shows you watch episode by episode via the command line
+Buffy Buddies is a CLI that serves as a personalized Buffy the Vampire Slayer database.
 
-TV Tracker lets you:
+Buffy Buddies lets you:
 
-  • rate shows
+  • rate and review episodes of Buffy the Vampire Slayer
 
-  • maintain a queue
+  • write and access your user data
 
-  • finish episodes
+  • write a short biography
 
-  • interact with show data
-
+  • interact with episode data
 
 ## Installation
-Simply fork and clone this repository to begin using TV Tracker in the command line.
 
+Fork and clone this repository, and install the following gems to begin using Buffy Buddies in the command line.
+
+The gems required for this program are:
+
+  • audite >= 0.4.0
+
+  • catpix >= 0.2.0
+
+  • colorize >= 0.8.1
 
 ## Credits
 Created by Will (@baintonw) & Mary (@marycriv) for the Module 1 final project at Flatiron School.

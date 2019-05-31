@@ -65,6 +65,32 @@ class User < ActiveRecord::Base
     end.uniq
   end###ADDED
 
+  def episode_ratings
+    self.views.map do |view|
+      view.rating
+    end
+  end
+
+  def users_ep_names
+    self.views.map do |view|
+      view.name
+    end
+  end
+
+  def users_ep_comment
+    self.views.map do |view|
+      view.comment
+    end
+  end
+
+  def user_ep_info
+    self.views.map do |view|
+      puts "    Episode name: ".colorize(:cyan).bold + "#{view.name}"
+      puts "      Rating: ".colorize(:cyan).bold + "#{view.rating} "
+      puts "      Comment: ".colorize(:cyan).bold + "#{view.comment}\n\n"
+    end
+  end
+
 
 
 end # End user class
