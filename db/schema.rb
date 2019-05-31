@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 8) do
     t.integer "user_id"
     t.integer "episode_id"
     t.integer "rating"
-    t.string  "name"
-    t.string  "comment"
+    t.string "name"
+    t.string "comment"
   end
 
 end

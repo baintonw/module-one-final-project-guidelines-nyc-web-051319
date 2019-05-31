@@ -12,7 +12,7 @@ class CommandLineInterface
 
   def call
     # system("clear")
-    # titlescreen
+    titlescreen
     login
   end
 

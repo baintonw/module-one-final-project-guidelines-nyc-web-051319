@@ -1,16 +1,16 @@
-# require_all 'app'
+# # require_all 'app'
+# #
+# # Should these have more info than name, how are they connected to Show?
+# # How do you connect episode instances and user instances through View? Should watch_episode method take in an episode instance?
 #
-# Should these have more info than name, how are they connected to Show?
-# How do you connect episode instances and user instances through View? Should watch_episode method take in an episode instance?
-
-
-
-
-
-
-binding.pry
-
-# Season 1
+#
+#
+#
+#
+# #
+# # binding.pry
+#
+# # Season 1
 # Episode.create(name: "Welcome to the Hellmouth", season: "Season 1")
 # Episode.create(name: "The Harvest", season: "Season 1")
 # Episode.create(name: "Witch", season: "Season 1")
@@ -23,9 +23,9 @@ binding.pry
 # Episode.create(name: "Nightmares", season: "Season 1")
 # Episode.create(name: "Out of Mind, Out of Sight", season: "Season 1")
 # Episode.create(name: "Prophecy Girl", season: "Season 1")
-#
-#
-# Season 2
+# #
+# #
+# # Season 2
 # Episode.create(name: "When She Was Bad", season: "Season 2")
 # Episode.create(name: "Some Assembly Required", season: "Season 1")
 # Episode.create(name: "School Hard", season: "Season 2")
@@ -48,9 +48,9 @@ binding.pry
 # Episode.create(name: "Go Fish", season: "Season 2")
 # Episode.create(name: "Becoming (Part 1)", season: "Season 2")
 # Episode.create(name: "Becoming (Part 2)", season: "Season 2")
-#
-#
-# Season 3
+# #
+# #
+# # Season 3
 # Episode.create(name: "Anne", season: "Season 3")
 # Episode.create(name: "Dead Man's Party", season: "Season 3")
 # Episode.create(name: "Faith, Hope & Trick", season: "Season 3")
@@ -72,9 +72,9 @@ binding.pry
 # Episode.create(name: "Choices", season: "Season 3")
 # Episode.create(name: "The Prom", season: "Season 3")
 # Episode.create(name: "Graduation Day", season: "Season 3")
-#
-#
-# Season 4
+# #
+# #
+# # Season 4
 # Episode.create(name: "The Freshman", season: "Season 4")
 # Episode.create(name: "Living Conditions", season: "Season 4")
 # Episode.create(name: "The Harsh Light of Day", season: "Season 4")
@@ -97,9 +97,9 @@ binding.pry
 # Episode.create(name: "The Yoko Factor (Part 1)", season: "Season 4")
 # Episode.create(name: "Primeval (Part 2)", season: "Season 4")
 # Episode.create(name: "Restless", season: "Season 4")
-#
-#
-# Season 5
+# #
+# #
+# # Season 5
 # Episode.create(name: "Buffy vs. Dracula", season: "Season 5")
 # Episode.create(name: "Real Me", season: "Season 5")
 # Episode.create(name: "The Replacement", season: "Season 5")
@@ -122,9 +122,9 @@ binding.pry
 # Episode.create(name: "Spiral", season: "Season 5")
 # Episode.create(name: "The Weight of the World", season: "Season 5")
 # Episode.create(name: "The Gift", season: "Season 5")
-#
-#
-# Season 6
+# #
+# #
+# # Season 6
 # Episode.create(name: "Bargaining (Part 1)", season: "Season 6")
 # Episode.create(name: "Bargaining (Part 2)", season: "Season 6")
 # Episode.create(name: "After Life", season: "Season 6")
@@ -147,10 +147,10 @@ binding.pry
 # Episode.create(name: "Villains", season: "Season 6")
 # Episode.create(name: "Two to Go", season: "Season 6")
 # Episode.create(name: "Grave", season: "Season 6")
-#
-#
-#
-# Season 7
+# #
+# #
+# #
+# # Season 7
 # Episode.create(name: "Lessons", season: "Season 7")
 # Episode.create(name: "Beneath You", season: "Season 7")
 # Episode.create(name: "Same Time, Same Place", season: "Season 7")
@@ -171,3 +171,5 @@ binding.pry
 # Episode.create(name: "Touched", season: "Season 7")
 # Episode.create(name: "End of Days", season: "Season 7")
 # Episode.create(name: "Chosen", season: "Season 7")
+#
+# binding.pry
