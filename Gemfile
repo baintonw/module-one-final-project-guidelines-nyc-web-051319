@@ -8,3 +8,4 @@ gem "require_all"
 gem 'colorize'
 gem 'catpix'
 gem 'audite'
+gem 'lolize'

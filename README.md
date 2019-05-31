@@ -24,5 +24,7 @@ The gems required for this program are:
 
   • colorize >= 0.8.1
 
+  • lolize >= 0.0.3
+
 ## Credits
 Created by Will (@baintonw) & Mary (@marycriv) for the Module 1 final project at Flatiron School.
