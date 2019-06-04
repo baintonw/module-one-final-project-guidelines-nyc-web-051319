@@ -78,13 +78,13 @@ class CommandLineInterface
     program_input = gets.chomp
     case program_input
 
-        when "1", "watch episode" # Working √
-        puts "  List of available episodes:\n".colorize(:light_blue)
-        line_break
-        puts Episode.episode_list
-        line_break
-        puts "\n  What episode did you watch?\n".colorize(:light_blue)
-        input2 = gets.strip
+      when "1", "watch episode" # Working √
+      puts "  List of available episodes:\n".colorize(:light_blue)
+      line_break
+      puts Episode.episode_list
+      line_break
+      puts "\n  What episode did you watch?\n".colorize(:light_blue)
+      input2 = gets.strip
         if
           @user.watched_episodes_names.include?(input2)
           error("review twice")
@@ -97,7 +97,7 @@ class CommandLineInterface
         else
           puts "\n  Give the episode a rating from 1-5.\n".colorize(:light_blue)
           input3 = gets.strip.to_i
-              if input3 > 5
+            if input3 > 5
               input3 = 5
               puts "\n  Rating rounded down to 5!".colorize(:light_blue)
               sleep(1)
@@ -124,13 +124,14 @@ class CommandLineInterface
               puts "\n  Success! Episode watched!".colorize(:green)
               sleep(1)
               start_program
-            end
+            end #end rating conditional
           end
 
       when "2", "change rating"
         puts "  List of available episodes\n".colorize(:light_blue)
         line_break
-        puts "#{@user.watched_episodes_names}\n"
+        puts @user.watched_episodes_names
+        puts " "
         line_break
         puts "  Which episode do you want to change?\n".colorize(:light_blue)
         input4 = gets.strip
@@ -167,7 +168,8 @@ class CommandLineInterface
 
       when "4", "remove episode"
           puts "  List of available episodes:\n".colorize(:light_blue)
-          puts "#{@user.watched_episodes_names}\n"
+          puts @user.watched_episodes_names
+          puts " "
           line_break
           puts "  Which episode would you like to delete?\n".colorize(:light_blue)
           episode = gets.strip
