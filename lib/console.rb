@@ -1,21 +1,10 @@
 class CommandLineInterface
 
-  require 'catpix'
-#   # Creates class for CLI to keep command line actions organized
-#
-#   def call
-#     welcome
-#   end
-# require_relative '../db/seeds.rb'
-# require_all 'lib'
-# require_all 'app'
-
-  def call
-    # system("clear")
-    # titlescreen
-    login
-  end
-
+  def call #calls program elements in order
+    system("clear") #clears screen
+    # titlescreen #titlescreen and music
+    login #creates/finds user and begins program
+  end #end call
 
   def titlescreen
     @current_song = Audite.new
@@ -31,21 +20,18 @@ class CommandLineInterface
       :resolution => 'high'
 
     sleep(3)
-  end #end greet
-
-
+  end #end titlescreen
 
   def login
-    puts "\n       ╔═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╗ \n"
+    border("top")
     puts "\n    🧛🏻‍  ⚰️      𝖂 𝖊𝖑𝖈𝖔𝖒𝖊  𝖙𝖔  𝕭 𝖚𝖋𝖋𝖞  𝕭 𝖚𝖉𝖉𝖎𝖊𝖘!      ⚰️  🧛🏻‍    ".colorize(:light_red).bold.blink
-    puts "\n       ╚═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╝ "
-    puts "\n \n     Your personalized Buffy the Vampire Slayer database!    ".colorize(:light_red)
+    border("bottom")
+    puts "\n     Your personalized Buffy the Vampire Slayer database!    ".colorize(:light_red)
     puts "\n \n  •  Please login or create a new username: \n".colorize(:light_red)
     input0 = gets.chomp
+
     if input0 == "exit"
-      puts "\n       ╔═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╗ \n"
-      puts "\n ⚰️   𝕰𝖓𝖉𝖎𝖓𝖌  𝖕𝖗𝖔𝖌𝖗𝖆𝖒  𝖓𝖔𝖜.  𝕴𝖋  𝖙𝖍𝖊  𝖆𝖕𝖔𝖈𝖆𝖑𝖞𝖕𝖘𝖊  𝖈𝖔𝖒𝖊𝖘,  𝖇𝖊𝖊𝖕  𝖒𝖊!  ⚰️\n  ".colorize(:red).bold
-      puts "       ╚═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╝\n"
+      exit_msg
       exit("buffy")
     elsif input0 == "bepis"
       bepis_mode #easter egg
@@ -53,7 +39,7 @@ class CommandLineInterface
       @user = User.find_or_create_by(name: input0)
       main_menu
     end
-  end
+  end #end login
 
   def main_menu
     puts "\n  Welcome to your personalized Buffy database, #{@user.name}!".colorize(:light_red)
@@ -71,16 +57,13 @@ class CommandLineInterface
         user_info
 
       when "3", "exit"
-        puts "\n       ╔═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╗ \n"
-        puts "\n ⚰️   𝕰𝖓𝖉𝖎𝖓𝖌  𝖕𝖗𝖔𝖌𝖗𝖆𝖒  𝖓𝖔𝖜.  𝕴𝖋  𝖙𝖍𝖊  𝖆𝖕𝖔𝖈𝖆𝖑𝖞𝖕𝖘𝖊  𝖈𝖔𝖒𝖊𝖘,  𝖇𝖊𝖊𝖕  𝖒𝖊!  ⚰️  \n".colorize(:red).bold
-        puts "       ╚═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╝ "
-        sleep(1)
+        exit_msg
         exit("spike")
 
       else
-        puts "Bad dog! That is not a valid option!".colorize(:light_red)
+        error("invalid")
       end
-  end #end main menu
+  end #end main_menu
 
   def start_program
     #light_blue color scheme
@@ -104,11 +87,11 @@ class CommandLineInterface
         input2 = gets.strip
         if
           @user.watched_episodes_names.include?(input2)
-          puts "  Bad dog! You can't review something twice. Try 'change rating' instead.".colorize(:light_blue)
+          error("review twice")
           sleep(1)
           start_program
         elsif Episode.episode_list.include?(input2) == false
-          puts "  Bad dog! #{input2} is not the name of a Buffy episode! Try again!".colorize(:light_blue)
+          error("not an episode")
           sleep(1)
           start_program
         else
@@ -152,7 +135,7 @@ class CommandLineInterface
         puts "  Which episode do you want to change?\n".colorize(:light_blue)
         input4 = gets.strip
         if @user.watched_episodes_names.include?(input4) == false
-          puts "\nBad dog! That's not the name of a Buffy episode. Try again.".colorize(:light_blue)
+          error("not an episode")
           puts "\n  Returning to program menu.".colorize(:light_red)
           sleep(1)
           start_program
@@ -208,17 +191,14 @@ class CommandLineInterface
         main_menu
 
       when "7", "exit"
-        puts "\n       ╔═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╗ \n"
-        puts "\n ⚰️   𝕰𝖓𝖉𝖎𝖓𝖌  𝖕𝖗𝖔𝖌𝖗𝖆𝖒  𝖓𝖔𝖜.  𝕴𝖋  𝖙𝖍𝖊  𝖆𝖕𝖔𝖈𝖆𝖑𝖞𝖕𝖘𝖊  𝖈𝖔𝖒𝖊𝖘,  𝖇𝖊𝖊𝖕  𝖒𝖊!  ⚰️  \n".colorize(:red).bold
-        puts "       ╚═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╝ "
-        sleep(1)
+        exit_msg
         exit("buffy")
 
       else
-        puts "\n  That is not an option! Once more, with feeling!\n".colorize(:light_red)
+        error("omwf")
         start_program
       end
-    end
+    end #end program
 
   def user_info
     puts "\n  User Menu: ".colorize(:cyan)
@@ -283,31 +263,36 @@ class CommandLineInterface
       puts "\n  Returning to main menu.".colorize(:light_red)
       sleep(1)
       main_menu
-
     when "7", "exit"
-      puts "\n       ╔═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╗ \n"
-      puts "\n ⚰️   𝕰𝖓𝖉𝖎𝖓𝖌  𝖕𝖗𝖔𝖌𝖗𝖆𝖒  𝖓𝖔𝖜.  𝕴𝖋  𝖙𝖍𝖊  𝖆𝖕𝖔𝖈𝖆𝖑𝖞𝖕𝖘𝖊  𝖈𝖔𝖒𝖊𝖘,  𝖇𝖊𝖊𝖕  𝖒𝖊!  ⚰️  \n".colorize(:red).bold
-      puts "       ╚═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╝ "
-      sleep(1)
+      exit_msg
       exit("tara")
-
     else
-      puts "  That is not a valid option!".colorize(:light_red)
+      error("invalid")
     end
-  end
+  end #end user_info
 
-  # def error(type)
-  #   case type
-  #
-  #   when "invalid option"
-  #   when
-  #   when
-  #
-  #   end
-  # end
+  def error(type)
+    case type
+    when "invalid"
+      puts "Bad dog! That is not a valid option!".colorize(:light_red)
+    when "omwf"
+      puts "\n  That is not an option! Once more, with feeling!\n".colorize(:light_red)
+    when "not an episode"
+      puts "Bad dog! That is not the name of a Buffy episode! Try again.".colorize(:light_red)
+    when "review twice"
+      puts "  Bad dog! You can't review something twice. Try 'change rating' instead.".colorize(:light_blue)
+    end
+  end #end error methods
+
   def line_break
     puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
-  end
+  end #end line_break
+
+  def exit_msg
+    border("top")
+    puts "\n ⚰️   𝕰𝖓𝖉𝖎𝖓𝖌  𝖕𝖗𝖔𝖌𝖗𝖆𝖒  𝖓𝖔𝖜.  𝕴𝖋  𝖙𝖍𝖊  𝖆𝖕𝖔𝖈𝖆𝖑𝖞𝖕𝖘𝖊  𝖈𝖔𝖒𝖊𝖘,  𝖇𝖊𝖊𝖕  𝖒𝖊!  ⚰️\n  ".colorize(:red).bold
+    border("bottom")
+  end #end exit_msg method
 
   def exit(char)
     case char
@@ -339,7 +324,15 @@ class CommandLineInterface
           :resolution => 'high'
 
     end
-  end
+  end #end exit screen method
+
+  def border(top_or_bottom)
+    if top_or_bottom == "top"
+      puts "\n       ╔═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╗ \n"
+    else
+      puts "\n       ╚═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╝ \n"
+    end
+  end #end border
 
   def fav_eps
     val = @user.views.where(rating: 5)
@@ -359,7 +352,7 @@ class CommandLineInterface
         sleep(3)
         start_program
       end
-  end
+  end #end fav_eps method
 
   def bepis_mode #easter egg do not touch
     # @current_song.stop_stream
@@ -396,18 +389,9 @@ class CommandLineInterface
 
   end #end bepis mode
 
-
-
 end #class end
 
 
   # def speak
   #   system('say "hello master"')
-  # end
-
-  # def song
-  #   song = Music.new('./lib/assets/song.mp3')
-  #   song.volume = 50
-  #   song.play
-  #   sleep(100)
   # end
