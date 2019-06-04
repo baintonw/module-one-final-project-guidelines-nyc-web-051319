@@ -12,7 +12,7 @@ class CommandLineInterface
 
   def call
     # system("clear")
-    titlescreen
+    # titlescreen
     login
   end
 
@@ -33,35 +33,7 @@ class CommandLineInterface
     sleep(3)
   end #end greet
 
-  def smg
-    Catpix::print_image "./lib/assets/buffy.png",
-      :limit_x => 1,
-      :limit_y => 1,
-      :center_x => true,
-      :center_y => true,
-      :bg_fill => false,
-      :resolution => 'high'
-  end
 
-  def spike
-    Catpix::print_image "./lib/assets/spike.png",
-      :limit_x => 1,
-      :limit_y => 1,
-      :center_x => true,
-      :center_y => true,
-      :bg_fill => false,
-      :resolution => 'high'
-  end
-
-  def tara
-      Catpix::print_image "./lib/assets/tara.png",
-        :limit_x => 1,
-        :limit_y => 1,
-        :center_x => true,
-        :center_y => true,
-        :bg_fill => false,
-        :resolution => 'high'
-  end
 
   def login
     puts "\n       ╔═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╗ \n"
@@ -74,7 +46,7 @@ class CommandLineInterface
       puts "\n       ╔═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╗ \n"
       puts "\n ⚰️   𝕰𝖓𝖉𝖎𝖓𝖌  𝖕𝖗𝖔𝖌𝖗𝖆𝖒  𝖓𝖔𝖜.  𝕴𝖋  𝖙𝖍𝖊  𝖆𝖕𝖔𝖈𝖆𝖑𝖞𝖕𝖘𝖊  𝖈𝖔𝖒𝖊𝖘,  𝖇𝖊𝖊𝖕  𝖒𝖊!  ⚰️\n  ".colorize(:red).bold
       puts "       ╚═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╝\n"
-      smg
+      exit("buffy")
     elsif input0 == "bepis"
       bepis_mode #easter egg
     else
@@ -103,7 +75,7 @@ class CommandLineInterface
         puts "\n ⚰️   𝕰𝖓𝖉𝖎𝖓𝖌  𝖕𝖗𝖔𝖌𝖗𝖆𝖒  𝖓𝖔𝖜.  𝕴𝖋  𝖙𝖍𝖊  𝖆𝖕𝖔𝖈𝖆𝖑𝖞𝖕𝖘𝖊  𝖈𝖔𝖒𝖊𝖘,  𝖇𝖊𝖊𝖕  𝖒𝖊!  ⚰️  \n".colorize(:red).bold
         puts "       ╚═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╝ "
         sleep(1)
-        spike
+        exit("spike")
 
       else
         puts "Bad dog! That is not a valid option!".colorize(:light_red)
@@ -125,9 +97,9 @@ class CommandLineInterface
 
         when "1", "watch episode" # Working √
         puts "  List of available episodes:\n".colorize(:light_blue)
-        puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+        line_break
         puts Episode.episode_list
-        puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+        line_break
         puts "\n  What episode did you watch?\n".colorize(:light_blue)
         input2 = gets.strip
         if
@@ -174,10 +146,10 @@ class CommandLineInterface
 
       when "2", "change rating"
         puts "  List of available episodes\n".colorize(:light_blue)
-        puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
-        puts @user.watched_episodes_names
-        puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n"
-        puts "\n  Which episode do you want to change?\n".colorize(:light_blue)
+        line_break
+        puts "#{@user.watched_episodes_names}\n"
+        line_break
+        puts "  Which episode do you want to change?\n".colorize(:light_blue)
         input4 = gets.strip
         if @user.watched_episodes_names.include?(input4) == false
           puts "\nBad dog! That's not the name of a Buffy episode. Try again.".colorize(:light_blue)
@@ -207,29 +179,14 @@ class CommandLineInterface
 
       when "3", "my top rated episodes" #Working √
         # Pulls all episodes rated 5 by user
-        val = @user.views.where(rating: 5)
-          if val.length > 0
-            puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
-            puts "  Your favorite episode(s) are: "
-            array2 = val.all.map { |view| Episode.find_by_id(view.episode_id).name }
-            array2.each { |x| puts "    - #{x}"}
-            puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
-            puts "\n    Operation complete. You have many favorite episodes. You must be a big fan of the show!\n".colorize(:green)
-            puts "  Restarting program now.".colorize(:light_blue)
-            sleep(4)
-            start_program
-          else
-            puts "  You have no favorite episodes! What is your childhood trauma?\n".colorize(:light_blue)
-            sleep(3)
-            start_program
-          end
+        fav_eps
+
 
       when "4", "remove episode"
           puts "  List of available episodes:\n".colorize(:light_blue)
-          puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
-          puts @user.watched_episodes_names
-          puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
-          puts "\n  Which episode would you like to delete?\n".colorize(:light_blue)
+          puts "#{@user.watched_episodes_names}\n"
+          line_break
+          puts "  Which episode would you like to delete?\n".colorize(:light_blue)
           episode = gets.strip
           bepis2 = View.find_by(name: episode)
           View.delete(bepis2)
@@ -239,9 +196,10 @@ class CommandLineInterface
 
       when "5", "top rated of all time"
         puts "        Top 5 Highest-Rated Episodes of all time:\n".colorize(:light_blue)
-        puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+        line_break
         puts Episode.hash_name_rating.sort.first(5)
-        puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+        puts " "
+        line_break
         sleep(2)
         start_program
 
@@ -254,7 +212,7 @@ class CommandLineInterface
         puts "\n ⚰️   𝕰𝖓𝖉𝖎𝖓𝖌  𝖕𝖗𝖔𝖌𝖗𝖆𝖒  𝖓𝖔𝖜.  𝕴𝖋  𝖙𝖍𝖊  𝖆𝖕𝖔𝖈𝖆𝖑𝖞𝖕𝖘𝖊  𝖈𝖔𝖒𝖊𝖘,  𝖇𝖊𝖊𝖕  𝖒𝖊!  ⚰️  \n".colorize(:red).bold
         puts "       ╚═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╝ "
         sleep(1)
-        smg
+        exit("buffy")
 
       else
         puts "\n  That is not an option! Once more, with feeling!\n".colorize(:light_red)
@@ -277,22 +235,23 @@ class CommandLineInterface
 
     when "1", "my user data"
       sleep(1)
-      puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+      puts " "
+      line_break
       puts "  Username: \n".colorize(:cyan)
       puts "      #{@user.name}\n \n"
       puts "  Your episode list: \n".colorize(:cyan)
       @user.watched_episodes_names.each { |x| puts "    -  #{x}" }
       puts "\n  User bio: ".colorize(:cyan)
       puts "      #{@user.bio} \n \n"
-      puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+      line_break
       sleep(3)
       user_info
 
     when "2", "my viewed episodes"
-      puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+      line_break
       puts "  Your watched episodes: \n".colorize(:cyan)
       @user.watched_episodes_names.each { |x| puts "    -  #{x}" }
-      puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+      line_break
       sleep(2)
       user_info
 
@@ -304,22 +263,7 @@ class CommandLineInterface
     when "4", "my favorite episodes"
       # Not dry, fix later
       sleep(1)
-      val = @user.views.where(rating: 5)
-        if val.length > 0
-          puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
-          puts "  Your favorite episode(s) are: "
-          array2 = val.all.map { |view| Episode.find_by_id(view.episode_id).name }
-          array2.each { |x| puts "    - #{x}"}
-          puts "\n        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
-          puts "\n    Operation complete. You have many favorite episodes. You must be a big fan of the show!\n".colorize(:green)
-          puts "  Restarting program now.".colorize(:light_blue)
-          sleep(4)
-          user_info
-        else
-          puts "  You have no favorite episodes! What is your childhood trauma?\n".colorize(:light_blue)
-          sleep(3)
-          user_info
-        end
+      fav_eps
 
     when "5", "make or change bio"
         puts "\n  Tell us about yourself.".colorize(:cyan)
@@ -345,15 +289,80 @@ class CommandLineInterface
       puts "\n ⚰️   𝕰𝖓𝖉𝖎𝖓𝖌  𝖕𝖗𝖔𝖌𝖗𝖆𝖒  𝖓𝖔𝖜.  𝕴𝖋  𝖙𝖍𝖊  𝖆𝖕𝖔𝖈𝖆𝖑𝖞𝖕𝖘𝖊  𝖈𝖔𝖒𝖊𝖘,  𝖇𝖊𝖊𝖕  𝖒𝖊!  ⚰️  \n".colorize(:red).bold
       puts "       ╚═══   ☆ .·:·. ☽ ✧    †    ✧ ☾ .·:·. ☆   ═══╝ "
       sleep(1)
-      tara
+      exit("tara")
 
     else
       puts "  That is not a valid option!".colorize(:light_red)
     end
   end
 
+  # def error(type)
+  #   case type
+  #
+  #   when "invalid option"
+  #   when
+  #   when
+  #
+  #   end
+  # end
+  def line_break
+    puts "        ━━━━━━━ ༻  ★  ༺  ━━━━━━━\n\n"
+  end
+
+  def exit(char)
+    case char
+    when "buffy"
+      Catpix::print_image "./lib/assets/buffy.png",
+        :limit_x => 1,
+        :limit_y => 1,
+        :center_x => true,
+        :center_y => true,
+        :bg_fill => false,
+        :resolution => 'high'
+
+    when "spike"
+      Catpix::print_image "./lib/assets/spike.png",
+        :limit_x => 1,
+        :limit_y => 1,
+        :center_x => true,
+        :center_y => true,
+        :bg_fill => false,
+        :resolution => 'high'
+
+    when "tara"
+        Catpix::print_image "./lib/assets/tara.png",
+          :limit_x => 1,
+          :limit_y => 1,
+          :center_x => true,
+          :center_y => true,
+          :bg_fill => false,
+          :resolution => 'high'
+
+    end
+  end
+
+  def fav_eps
+    val = @user.views.where(rating: 5)
+      if val.length > 0
+        line_break
+        puts "  Your favorite episode(s) are: "
+        array2 = val.all.map { |view| Episode.find_by_id(view.episode_id).name }
+        array2.each { |x| puts "    - #{x}"}
+        puts " "
+        line_break
+        puts "    Operation complete. You have many favorite episodes. You must be a big fan of the show!\n".colorize(:green)
+        puts "  Restarting program now.".colorize(:light_blue)
+        sleep(4)
+        start_program
+      else
+        puts "  You have no favorite episodes! What is your childhood trauma?\n".colorize(:light_blue)
+        sleep(3)
+        start_program
+      end
+  end
+
   def bepis_mode #easter egg do not touch
-    @current_song.stop_stream
+    # @current_song.stop_stream
     @current_song = Audite.new
     @current_song.load('./lib/assets/eastereggs/bepis mode 1.mp3')
     @current_song.start_stream
