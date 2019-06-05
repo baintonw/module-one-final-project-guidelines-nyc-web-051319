@@ -2,7 +2,7 @@ class CommandLineInterface
 
   def call #calls program elements in order
     system("clear") #clears screen
-    # titlescreen #titlescreen and music
+    titlescreen #titlescreen and music
     login #creates/finds user and begins program
   end #end call
 
@@ -292,7 +292,7 @@ class CommandLineInterface
 
   def exit_msg
     border("top")
-    puts "\n ⚰️   𝕰𝖓𝖉𝖎𝖓𝖌  𝖕𝖗𝖔𝖌𝖗𝖆𝖒  𝖓𝖔𝖜.  𝕴𝖋  𝖙𝖍𝖊  𝖆𝖕𝖔𝖈𝖆𝖑𝖞𝖕𝖘𝖊  𝖈𝖔𝖒𝖊𝖘,  𝖇𝖊𝖊𝖕  𝖒𝖊!  ⚰️\n  ".colorize(:red).bold
+    puts "\n ⚰️   𝕰𝖓𝖉𝖎𝖓𝖌  𝖕𝖗𝖔𝖌𝖗𝖆𝖒  𝖓𝖔𝖜.  𝕴𝖋  𝖙𝖍𝖊  𝖆𝖕𝖔𝖈𝖆𝖑𝖞𝖕𝖘𝖊  𝖈𝖔𝖒𝖊𝖘,  𝖇𝖊𝖊𝖕  𝖒𝖊!  ⚰️  ".colorize(:red).bold
     border("bottom")
   end #end exit_msg method
 
@@ -357,7 +357,7 @@ class CommandLineInterface
   end #end fav_eps method
 
   def bepis_mode #easter egg do not touch
-    # @current_song.stop_stream
+    ç
     @current_song = Audite.new
     @current_song.load('./lib/assets/eastereggs/bepis mode 1.mp3')
     @current_song.start_stream
